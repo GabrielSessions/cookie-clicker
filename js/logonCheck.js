@@ -86,7 +86,7 @@ function noStoredName(){
 
 function checkName(){
     setCookie('username', document.getElementById('fname').value, 50);
-    console.log(myAirtable.getEntriesInfo());
+    console.log(document.getElementById('fname').value);
 }
 
 printActivation();
