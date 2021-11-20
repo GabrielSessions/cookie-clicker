@@ -17,8 +17,6 @@ AirtableElement.init();
 var myAirtable = AirtableElement.getService();
 myAirtable.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "cookieClicker");
 
-console.log(getCookie('username'));
-
 //Shows confirmation of a connection to Airtable
 function printActivation(){
     var logonMessage = document.createElement('h4');
@@ -80,12 +78,14 @@ function noStoredName(){
     document.body.appendChild(formDiv);
 
     //Stores name as a cookie for future use
-    setCookie('username', document.getElementById('fname').value, 50);
+    console.log()
+    
 }
 
 
 
 function checkName(){
+    setCookie('username', document.getElementById('fname').value, 50);
     console.log(myAirtable.getEntriesInfo());
 }
 
