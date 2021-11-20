@@ -1,8 +1,5 @@
 
 
-
-
-
 /*
 var mySL = document.getElementById("service_systemlink").getService();
 mySL.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
@@ -20,7 +17,7 @@ AirtableElement.init();
 var myAirtable = AirtableElement.getService();
 myAirtable.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "cookieClicker");
 
-console.log(getCookie('username'));
+console.log('cookie: ' + (getCookie('username')));
 
 //Shows confirmation of a connection to Airtable
 function printActivation(){
@@ -32,7 +29,7 @@ function printActivation(){
 
     //Checks if the user previously entered a name, prompts user to enter a name if new
     try{
-        if (getCookie(username).length > 0){
+        if (getCookie('username').length > 0){
             var helloMessage = document.createElement('p');
             helloMessage.setAttribute('class', 'logon');
             helloMessage.innerHTML = "Welcome back " + getCookie(username) + " !";
