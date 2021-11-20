@@ -2,6 +2,7 @@
 
 
 
+
 /*
 var mySL = document.getElementById("service_systemlink").getService();
 mySL.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
@@ -18,6 +19,8 @@ AirtableElement.init();
 
 var myAirtable = AirtableElement.getService();
 myAirtable.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "cookieClicker");
+
+console.log(getCookie('username'));
 
 //Shows confirmation of a connection to Airtable
 function printActivation(){
