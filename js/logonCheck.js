@@ -1,5 +1,7 @@
 
 
+
+
 /*
 var mySL = document.getElementById("service_systemlink").getService();
 mySL.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
@@ -78,15 +80,15 @@ function noStoredName(){
     document.body.appendChild(formDiv);
 
     //Stores name as a cookie for future use
-    console.log()
+    //console.log()
     
 }
 
 
 
 function checkName(){
-    setCookie('username', document.getElementById('fname').value, 50);
-    console.log(document.getElementById('fname').value);
+    setCookie('username', JSON.stringify(document.getElementById('fname').value), 10);
+    console.log(getCookie('username'));
 }
 
 printActivation();
