@@ -38,8 +38,8 @@ function printActivation(){
     //Checks if the user previously entered a name, prompts user to enter a name if new
     try{
         
-       
-        if (JSON.stringify(getCookie('username')) != '""'){
+       //FIX COOKIES WHEN THERE'S TIME!!!
+        if (JSON.stringify(getCookie('username')) != '""' && false){
             
             username = getCookie('username').substring(1, getCookie('username').length() - 1);
             var helloMessage = document.createElement('p');
