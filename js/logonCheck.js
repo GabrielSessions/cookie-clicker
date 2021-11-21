@@ -1,10 +1,6 @@
 
 
-/*
-var mySL = document.getElementById("service_systemlink").getService();
-mySL.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
-mySL.init();
-*/
+var username = "";
 
 //Initialization of Airtable Connection
 
@@ -14,8 +10,21 @@ AirtableElement.setAttribute("baseid", "app" + "HKB1ZbyWMYs0qo");
 AirtableElement.setAttribute("tablename", "cookieClicker");
 AirtableElement.init();
 
+//Table for starting game and counting number of players
 var myAirtable = AirtableElement.getService();
 myAirtable.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "cookieClicker");
+
+
+
+var AirtableElement = document.getElementById("service_airtable2");
+AirtableElement.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
+AirtableElement.setAttribute("baseid", "app" + "HKB1ZbyWMYs0qo");
+AirtableElement.setAttribute("tablename", "Scores");
+AirtableElement.init();
+
+//Table for calculating game winner
+var myAirtable2 = AirtableElement.getService();
+myAirtable2.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "Scores");
 
 
 //Shows confirmation of a connection to Airtable
@@ -23,74 +32,94 @@ function printActivation(){
     var logonMessage = document.createElement('h4');
     logonMessage.setAttribute('id', 'logonMessage');
     logonMessage.setAttribute('class', 'logon');
-    logonMessage.innerHTML = "Game Satus: Connected to Airtable, Waiting to Join Game";
+    logonMessage.innerHTML = "Game Satus: Connected to Airtable, Sign in using your name";
     document.body.appendChild(logonMessage);
 
     //Checks if the user previously entered a name, prompts user to enter a name if new
     try{
-        if (getCookie('username') != null || getCookie('username') == ''){
+        
+       
+        if (JSON.stringify(getCookie('username')) != '""'){
+            
+            username = getCookie('username');
             var helloMessage = document.createElement('p');
+            helloMessage.setAttribute('id', 'helloMessage');
             helloMessage.setAttribute('class', 'logon');
-            helloMessage.innerHTML = "Welcome back " + getCookie('username') + " !";
+            helloMessage.innerHTML = "Welcome " + username + "!";
             document.body.appendChild(helloMessage);
+
+            joinGameLobby();
+            
         }
+
+        //If not previously in a game, ask for a username from the user
+        //User can change name later when in game lobby
         else{
             var helloMessage = document.createElement('p');
             helloMessage.setAttribute('class', 'logon');
+            helloMessage.setAttribute('id','helloMessage');
             helloMessage.innerHTML += "Welcome! Please enter your name below.";
             document.body.appendChild(helloMessage);
-            noStoredName();
+            noStoredName('introForm');
         }
         
     }
     catch{
-        var helloMessage = document.createElement('p');
-        helloMessage.setAttribute('class', 'logon');
-        helloMessage.innerHTML += "Welcome! Please enter your name below.";
-        document.body.appendChild(helloMessage);
-        noStoredName();
+        console.log("an error ocurred");
     }
 
     
 }
 
 //If the user is new, the user is prompted to enter a name into a form
-//After the form is submitted, the checkName() function runs
-function noStoredName(){
+//After the form is submitted, name is saved as a cookie to the browser
+function noStoredName(formName){
 
     var formDiv = document.createElement('div');
+    formDiv.setAttribute('id', 'nameForm');
     formDiv.setAttribute('class', 'logon');
 
     var formHTML  = `<form  target = "loginForm">
-    <label for="fname">Your Name:</label><br><br>
+    <label for="fname" id = "yourNameLabel">Your Name:</label><br><br>
     <input type="text" id="fname" name="fname" value=""><br>
     </form>`;
     formDiv.innerHTML += formHTML;
 
-    var formSubmitButton = `
-
-    <button type = 'button' class = 'button1' onclick = 'checkName()'>
-    Submit
-    </button>
+    var formSubmitButton = "<button type = 'button' class = 'button1'  onclick = 'saveName()'>Submit</button>";
     
-    `
     formDiv.innerHTML += formSubmitButton;
 
     document.body.appendChild(formDiv);
 
-    //Stores name as a cookie for future use
-    //console.log()
     
 }
 
 
+function deleteNameForm(){
+    document.getElementById('nameForm').remove();
+}
 
-function checkName(){
-    setCookie('username', JSON.stringify(document.getElementById('fname').value), 10);
-    console.log(getCookie('username'));
+
+
+function saveName(){
+    //Stores name as a cookie
+    var name = document.getElementById('fname').value;
+    setCookie('username', name, 10);
+    username = name;
+
+    document.getElementById('helloMessage').innerHTML = "Welcome " + username + "!";
+    document.getElementById('yourNameLabel').innerHTML = "Change your username here:"
+
+    console.log(joinedLobby);
+    if (joinedLobby == false){
+        joinGameLobby();
+    
+    }
+    
+
+
+
 }
 
 printActivation();
-
-
 
