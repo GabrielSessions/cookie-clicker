@@ -41,13 +41,14 @@ function printActivation(){
        
         if (JSON.stringify(getCookie('username')) != '""'){
             
-            username = getCookie('username');
+            username = getCookie('username').substring(1, getCookie('username').length() - 1);
             var helloMessage = document.createElement('p');
             helloMessage.setAttribute('id', 'helloMessage');
             helloMessage.setAttribute('class', 'logon');
             helloMessage.innerHTML = "Welcome " + username + "!";
             document.body.appendChild(helloMessage);
 
+            noStoredName('You may change your username here:');
             joinGameLobby();
             
         }
@@ -60,7 +61,7 @@ function printActivation(){
             helloMessage.setAttribute('id','helloMessage');
             helloMessage.innerHTML += "Welcome! Please enter your name below.";
             document.body.appendChild(helloMessage);
-            noStoredName('introForm');
+            noStoredName('Your Name:');
         }
         
     }
@@ -73,7 +74,7 @@ function printActivation(){
 
 //If the user is new, the user is prompted to enter a name into a form
 //After the form is submitted, name is saved as a cookie to the browser
-function noStoredName(formName){
+function noStoredName(labelName){
 
     var formDiv = document.createElement('div');
     formDiv.setAttribute('id', 'nameForm');
@@ -90,6 +91,8 @@ function noStoredName(formName){
     formDiv.innerHTML += formSubmitButton;
 
     document.body.appendChild(formDiv);
+
+    document.getElementById('yourNameLabel').innerHTML = labelName;
 
     
 }
@@ -108,7 +111,7 @@ function saveName(){
     username = name;
 
     document.getElementById('helloMessage').innerHTML = "Welcome " + username + "!";
-    document.getElementById('yourNameLabel').innerHTML = "Change your username here:"
+    document.getElementById('yourNameLabel').innerHTML = "You may change your username here:"
 
     console.log(joinedLobby);
     if (joinedLobby == false){
