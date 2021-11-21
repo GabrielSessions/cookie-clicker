@@ -81,8 +81,8 @@ function noStoredName(labelName){
     formDiv.setAttribute('class', 'logon');
 
     var formHTML  = `<form  target = "loginForm">
-    <label for="fname" id = "yourNameLabel">Your Name:</label><br><br>
-    <input type="text" id="fname" name="fname" value=""><br>
+    <label for="fname" id = "yourNameLabel" class = "formLabel" style = >Your Name:</label><br><br>
+    <input type="text" id="fname" name="fname" value="" class = "text-input"><br>
     </form>`;
     formDiv.innerHTML += formHTML;
 
