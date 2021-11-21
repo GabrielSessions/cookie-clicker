@@ -1,4 +1,5 @@
 
+
 //GAME STATUS NUMBERS
 //0 = Lobby is open
 //1 = Game in progress
@@ -6,6 +7,31 @@
 var joinedLobby = false;
 var joinedGame = false;
 var lobbyCountInterval;
+
+//Assign Random Number 0 to 999 as player ID
+var playerNumber = Math.floor(Math.random() * 1000);
+
+
+
+//Only works if inside another function
+//Checks if player ID matches an already used player ID
+//If match exists, played ID value is reassigned to an unused one
+function checkPlayerID(){
+    var entryValue = "Player" + playerNumber;
+
+    //Runs until error!
+    try{
+        while (true){
+            console.log(myAirtable2.getEntryValue(entryValue) + " already exists");
+            playerNumber = Math.floor(Math.random() * 1000);
+            entryValue = "Player" + playerNumber;
+        } 
+    }
+    catch{
+        console.log(playerNumber);
+    }
+    
+}
 
 //Checks if there if the lobby is open. If open, the user can join a game.
 function joinGameLobby(){
@@ -63,26 +89,29 @@ function joinGame(){
 
 
     document.body.appendChild(joinGameDiv);
+    
 
 }
 
 //Either the user to join or leave game
 function joinLeaveGame(){
-    if (myAirtable.getEntryValue('NumPlayers') < 0){
-        myAirtable.setEntryValueStrict('NumPlayers', 0);
-    }
+    
 
     //console.log(myAirtable.getEntryValue('NumPlayers') + ", " + joinedGame);
     if (myAirtable.getEntryValue("GameStatus") == 0){
 
+        checkPlayerID();
+
         //If number of players is less than zero, the counter resets to zero
-        
 
         //If in game, button will allow user to leave game
         if (joinedGame){
             joinedGame = false;
             document.getElementById('joinGameButton').innerHTML = "Join Game";
-            myAirtable.setEntryValueStrict('NumPlayers', myAirtable.getEntryValue('NumPlayers') - 1);
+            if (myAirtable.getEntryValue('NumPlayers') > 0){
+                myAirtable.setEntryValueStrict('NumPlayers', myAirtable.getEntryValue('NumPlayers') - 1);
+            }
+            
             document.getElementById("logonMessage").innerHTML = "Game Satus: Connected to Airtable, Waiting to Join Game";
 
             try{
@@ -91,6 +120,7 @@ function joinLeaveGame(){
             catch{
 
             }
+
         }
 
         //If not in game, button will allow user to join the game
@@ -154,8 +184,12 @@ function checkIfGameStarted(){
             catch{
 
             }
+            try{
+                document.getElementById('nameForm').remove();
+            }
+            catch{
 
-            document.getElementById('nameForm').remove();
+            }
             document.getElementById('joinGameDiv').remove();
             countdown();
 

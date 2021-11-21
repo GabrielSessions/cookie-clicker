@@ -1,3 +1,6 @@
+//Cookies code copied from CS HL2 IA
+
+//cvalue should be a String
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));

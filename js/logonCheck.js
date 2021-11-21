@@ -1,31 +1,60 @@
 
-
 var username = "";
 
 //Initialization of Airtable Connection
 
+//Table for starting game and counting number of players
 var AirtableElement = document.getElementById("service_airtable");
+var myAirtable = AirtableElement.getService();
+
+//Table for matching scores to player IDs
+var AirtableElement2 = document.getElementById("service_airtable2");
+var myAirtable2 = AirtableElement2.getService();
+
+//Table for matching scores to player IDs
+var AirtableElement3 = document.getElementById("service_airtable3");
+var myAirtable3 = AirtableElement3.getService();
+
+
 AirtableElement.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
 AirtableElement.setAttribute("baseid", "app" + "HKB1ZbyWMYs0qo");
 AirtableElement.setAttribute("tablename", "cookieClicker");
 AirtableElement.init();
 
-//Table for starting game and counting number of players
-var myAirtable = AirtableElement.getService();
 myAirtable.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "cookieClicker");
 
 
+AirtableElement2.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
+AirtableElement2.setAttribute("baseid", "app" + "HKB1ZbyWMYs0qo");
+AirtableElement2.setAttribute("tablename", "Scores");
+AirtableElement2.init();
 
-var AirtableElement = document.getElementById("service_airtable2");
-AirtableElement.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
-AirtableElement.setAttribute("baseid", "app" + "HKB1ZbyWMYs0qo");
-AirtableElement.setAttribute("tablename", "Scores");
-AirtableElement.init();
-
-//Table for calculating game winner
-var myAirtable2 = AirtableElement.getService();
 myAirtable2.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "Scores");
 
+
+AirtableElement3.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
+AirtableElement3.setAttribute("baseid", "app" + "HKB1ZbyWMYs0qo");
+AirtableElement3.setAttribute("tablename", "PlayerID");
+AirtableElement3.init();
+
+myAirtable3.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "PlayerID");
+
+/*
+
+//Function to initialize new Airtables
+function createAirtable(element, varName, tableName){
+    element.setAttribute("apikey", "key" + "WJDyynbH3CDv8W");
+    element.setAttribute("baseid", "app" + "HKB1ZbyWMYs0qo");
+    element.setAttribute("tablename", "cookieClicker");
+    element.init();
+
+    varName.init("key" + "WJDyynbH3CDv8W", "app" + "HKB1ZbyWMYs0qo", "cookieClicker");
+}
+
+createAirtable(AirtableElement, myAirtable, "cookieClicker");
+createAirtable(AirtableElement2, myAirtable2, "Scores");
+createAirtable(AirtableElement3, myAirtable3, "PlayerID");
+*/
 
 //Shows confirmation of a connection to Airtable
 function printActivation(){
@@ -105,6 +134,11 @@ function deleteNameForm(){
 
 
 function saveName(){
+    if (username == "reset_all_values"){
+        myAirtable.setEntryValueStrict('GameStatus', 0);
+        myAirtable.setEntryValueStrict('NumPlayers', 0);
+    }
+
     //Stores name as a cookie
     var name = document.getElementById('fname').value;
     setCookie('username', name, 10);
