@@ -1,7 +1,7 @@
 //gameLobby.js
 //By: Gabriel Sessions
 //Purpose: Sets up an online lobby for players to join a game
-//Note: There are referneces to other files in this project (JS functions, CSS, and the main HTML page)
+//Note: There are references to other files in this project (JS functions, CSS, and the main HTML page)
 
 //GAME STATUS NUMBERS
 //0 = Lobby is open
@@ -139,6 +139,7 @@ function joinLeaveGame(){
 
             else{
                 document.getElementById('gamemasterDisplay').remove();
+                clearInterval(checkGM);
             }
             
 
