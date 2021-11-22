@@ -1,3 +1,7 @@
+//mainGame.js
+//By: Gabriel Sessions
+//Purpose: Sets up an online cookie clicker game users can join from a lobby
+//Note: There are references to other files in this project (JS functions, CSS, and the main HTML page)
 
 var numOfCookieClicks = 0;
 
