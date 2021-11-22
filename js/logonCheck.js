@@ -1,3 +1,8 @@
+//logonCheck.js
+//By: Gabriel Sessions
+//Purpose: Allows a user to log onto an online lobby (defined in gameLobby.js)
+//Note: There are references to other files in this project (JS functions, CSS, and the main HTML page)
+
 
 var username = "";
 
