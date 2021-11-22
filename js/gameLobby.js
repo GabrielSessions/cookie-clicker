@@ -226,6 +226,9 @@ function startGame(){
     if (!isGamemaster){
         document.getElementById('gamemasterDisplay').remove();
     }
+    else{
+        myAirtable.setEntryValueStrict('Gamemaster', 'null');
+    }
 }
 
 
